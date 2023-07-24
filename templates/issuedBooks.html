@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/admin.css">
+    <title>profile</title>
+    <style>
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <!-- <button onclick="location.href='/pending_request'" type="button">Pending request</button>
+        <button onclick="location.href='/issued_books'" type="button">Issued Books</button>
+        <button onclick="location.href='/available_books'" type="button">Available Books</button>
+        <button onclick="location.href='/Fine'" type="button">Fine</button> -->
+
+        <a href="./pendingBooks" class="Pending request">Pending request</a>
+        <a href="./issuedBooks" class="Issued Books">Issued Books</a>
+        <a href="./librarian" class="Available Books">Available Books</a>
+        <a href="./Fine" class="Fine">Fine</a>
+    </nav>
+
+    <div class="issued-books">
+
+        {% if Issued_books %}
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Book Title</th>
+                    <th>Member Name</th>
+                    <th>Issue Date</th>
+                    <th>Due Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in Issued_books %}
+                <tr>
+                    <td>{{ book[0] }}</td>
+                    <td>{{ book[1] }}</td>
+                    <td>{{ book[2] }}</td>
+                    <td>{{ book[3] }}</td>
+                    <td>
+                        <form method="POST" action="/return_book">
+                            <input type="hidden" name="book_id" value="{{ book[4] }}">
+                            <button class="btn-view" type="submit">Return</button>
+                        </form>
+                    </td>
+                   
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>profile</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <!-- <button onclick="location.href='/pending_request'" type="button">Pending request</button>
+        <button onclick="location.href='/issued_books'" type="button">Issued Books</button>
+        <button onclick="location.href='/available_books'" type="button">Available Books</button>
+        <button onclick="location.href='/Fine'" type="button">Fine</button> -->
+    
+        <a href="./pendingBooks.html" class="Pending request">Pending request</a>
+        <a href="./issuedBooks.html" class="Issued Books">Issued Books</a>
+        <a href="./librarian.html" class="Available Books">Available Books</a>
+        <a href="./Fine" class="Fine">Fine</a>
+    </nav>
+    
+    <div class="admin-info">
+        <h1>Admin Page</h1>
+
+        <div class="form-group" action="/librarian">
+            <label for="firstname">First Name:</label>
+            <input type="text" id="firstname" value="{{ fName }}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="lastname">Last Name:</label>
+            <input type="text" id="lastname" value="{{ lName }}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" value="{{ email }}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" value="{{ pNumber }}" readonly>
+        </div>
+
+        <form method="POST" action="/logout">
+            <input type="submit" value="Logout">
+        </form>
+
+    </div>
+    
+</body>
+</html>

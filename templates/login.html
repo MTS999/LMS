@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- <link rel="stylesheet" type="text/css" href="../static/index.css"> -->
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 40px;
+            color: white;
+
+        }
+
+        form {
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #202221;
+
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        a {
+            color: #1e90ff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: #ff0000;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+
+    <title>Login</title>
+</head>
+<body>
+    <div class="login">
+
+        <h1 class="title">Login</h1>
+        <form method="post" action="/login">
+            <div class="labe2">
+
+                <label for="username">Username </label>
+                <input type="text" id="username" name="username" required><br>
+                
+            </div>
+            <div class="labe2">
+
+                <label for="password">Password   </label>
+                <input type="password" id="password" name="password" required><br>
+            </div>
+            <div>
+
+                <input class="btn_login" type="submit" value="Login">
+            </div>
+            <div>
+
+                <p>Don't have an account? <a href="/signup">Sign up</a></p>
+            </div>
+            
+            {% if error %}
+            <p>{{ error }}</p>
+            {% else %}
+            <p></p>
+            {% endif %}
+        </div>
+    </form>
+</body>
+</html>

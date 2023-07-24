@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Profile</title>
+    <link rel="stylesheet" type="text/css" href="../static/index.css">
+</head>
+
+<body>
+   <nav class="nav">
+    
+    <a href="viewBook"   class="viewbook" >View Books</a>
+    <a href="your_book"    class="books">Your Books</a> 
+    <a href="profile"   class="Profile" >Profile</a>
+    
+   </nav>
+
+
+
+    <div class="member_info">
+     
+        <body>
+       <div class="form-group">
+           <label for="firstname">First Name  </label>
+           <input type="text" id="firstname" value="{{ fName }}" readonly>
+       </div>
+       <div class="form-group">
+           <label for="lastname">Last Name  </label>
+           <input type="text" id="lastname" value="{{ lName }}" readonly>
+       </div>
+       <div class="form-group">
+           <label for="email">Email  </label>
+           <input type="email" id="email" value="{{ email }}" readonly>
+       </div>
+       <div class="form-group">
+           <label for="phone">Phone Number  </label>
+           <input type="text" id="phone" value="{{ pNumber }}" readonly>
+       </div>
+       
+       <form method="POST" action="/logout">
+           <input class="btn" type="submit" value="Logout">
+       </form>
+       
+   </div>
+</body>
+</html>

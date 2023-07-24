@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Member Page</title>
+    <link rel="stylesheet" type="text/css" href="../static/index.css">
+
+    <style>
+        table {
+            width: 80%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .btn-view {
+            padding: 4px 8px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<nav class="nav">
+
+
+    <a href="/viewBook" class="viewbook">View Books</a>
+    <a href="your_book" class="books">Your Books</a>
+    <a href="profile" class="Profile">Profile</a>
+
+</nav>
+
+<div class="container">
+
+    <h1>Search Book</h1>
+    <form method="POST" action="/member">
+        <!-- <label for="book_name">Book Name:</label> -->
+        <input type="text" value="{{book_name}}" id="book_name" name="book_name">
+        <input type="submit" value="Search">
+    </form>
+    <div class="search_book">
+
+
+        {% if books %}
+        <!-- <h2>Search Results:</h2> -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ISBN</th>
+                    <th>Title</th>
+                    <th>Publisher</th>
+                    <th>Edition</th>
+                    <th>Author</th>
+                    <th>Year of Publish</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td>{{ book[0] }}</td>
+                    <td>{{ book[1] }}</td>
+                    <td>{{ book[2] }}</td>
+                    <td>{{ book[3] }}</td>
+                    <td>{{ book[4] }}</td>
+                    <td>{{ book[5] }}</td>
+                    <td>{{ book[6] }}</td>
+                    <td>{{ book[7] }}</td>
+                    <td>
+                        {% if book[7] == "Pending" or book[7] == "Issued" %}
+                        <button class="btn-view" type="submit" disabled>ISSUE</button>
+                        {% else %}
+                        <form method="POST" action="/commit_issue_request">
+                            <input type="hidden" name="book_id" value="{{ book[0] }}">
+                            <button class="btn-view" type="submit">ISSUE</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+
+    <div class="view_books">
+
+
+        {% if a_books %}
+        <!-- <h2>Available:</h2> -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ISBN</th>
+                    <th>Title</th>
+                    <th>Publisher</th>
+                    <th>Edition</th>
+                    <th>Author</th>
+                    <th>Year of Publish</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in a_books %}
+                <tr>
+                    <td>{{ book[0] }}</td>
+                    <td>{{ book[1] }}</td>
+                    <td>{{ book[2] }}</td>
+                    <td>{{ book[3] }}</td>
+                    <td>{{ book[4] }}</td>
+                    <td>{{ book[5] }}</td>
+                    <td>{{ book[6] }}</td>
+                    <td>{{ book[7] }}</td>
+                    <td>
+                        <!-- {% if book[7] == "Pending" or book[7] == "Issued" %}
+                        <button class="btn-view" type="submit" disabled>ISSUE</button>
+                        {% else %} -->
+                        <form method="POST" action="/commit_issue_request">
+                            <input type="hidden" name="book_id" value="{{ book[0] }}">
+                            <button class="btn-view" type="submit">ISSUE</button>
+                        </form>
+                        <!-- {% endif %} -->
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</div>
+</body>
+<html>

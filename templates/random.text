@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Member Page</title>
+    <style>
+        table {
+            width: 80%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .dialog-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            display: none; /* Hide the dialog box by default */
+        }
+
+        .dialog-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 400px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .dialog-close {
+            text-align: right;
+        }
+
+        .dialog-close button {
+            background-color: transparent;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .dialog-buttons {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .dialog-buttons button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .dialog-buttons button.cancel {
+            background-color: #ccc;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-group">
+        <label for="firstname">First Name:</label>
+        <input type="text" id="firstname" value="{{ fName }}" readonly>
+    </div>
+    <div class="form-group">
+        <label for="lastname">Last Name:</label>
+        <input type="text" id="lastname" value="{{ lName }}" readonly>
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" value="{{ email }}" readonly>
+    </div>
+    <div class="form-group">
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" value="{{ pNumber }}" readonly>
+    </div>
+
+    <form method="POST" action="/logout">
+        <input type="submit" value="Logout">
+    </form>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <h1>Search Book</h1>
+    <form method="POST" action="/member">
+        <label for="book_name">Book Name:</label>
+        <input type="text" id="book_name" name="book_name">
+        <input type="submit" value="Search">
+    </form>
+
+    {% if books %}
+        <h2>Search Results:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ISBN</th>
+                    <th>Title</th>
+                    <th>Publisher</th>
+                    <th>Edition</th>
+                    <th>Author</th>
+                    <th>Year of Publish</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td>{{ book[0] }}</td>
+                    <td>{{ book[1] }}</td>
+                    <td>{{ book[2] }}</td>
+                    <td>{{ book[3] }}</td>
+                    <td>{{ book[4] }}</td>
+                    <td>{{ book[5] }}</td>
+                    <td>{{ book[6] }}</td>
+                    <td>{{ book[7] }}</td>
+                    <td><button class="btn-issue" onclick="openDialog('{{ book[0] }}')">Issue</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    <div id="dialog" class="dialog-overlay">
+        <div class="dialog-content">
+            <div class="dialog-close">
+                <button onclick="closeDialog()">X</button>
+            </div>
+            <h2>Issue Book</h2>
+            <form id="issueForm" onsubmit="submitIssueForm(event)">
+                <label for="issueFromDate">Issue From:</label>
+                <input type="date" id="issueFromDate" required><br>
+
+                <label for="issueToDate">Issue To:</label>
+                <input type="date" id="issueToDate" required><br>
+
+                <div class="dialog-buttons">
+                    <button type="button" class="cancel" onclick="closeDialog()">Cancel</button>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let selectedBookId = null;
+
+        function openDialog(bookId) {
+            selectedBookId = bookId;
+            const dialog = document.getElementById("dialog");
+            dialog.style.display = "flex";
+        }
+
+        function closeDialog() {
+            const dialog = document.getElementById("dialog");
+            dialog.style.display = "none";
+            selectedBookId = null;
+        }
+
+        function submitIssueForm(event) {
+            event.preventDefault();
+
+            const issueFromDate = document.getElementById("issueFromDate").value;
+            const issueToDate = document.getElementById("issueToDate").value;
+
+            // Perform further actions with the entered values
+            console.log("Book ID:", selectedBookId);
+            console.log("Issue From Date:", issueFromDate);
+            console.log("Issue To Date:", issueToDate);
+
+            // Close the dialog box
+            closeDialog();
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+   # return render_template('member.html', fName=member_info[0], lName=member_info[1], email=member_info[2],pNumber=member_info[3],a_books =a_books)
+# @app.route('/member', methods=['GET', 'POST'])
+# def member():
+#     connection = mysql.connection
+#     cursor = connection.cursor()
+
+#     if request.method == 'POST':
+#         book_name = request.form.get('book_name')
+#         search_query = f"CALL SearchBook('{book_name}')"
+#         cursor.execute(search_query)
+#         books = cursor.fetchall()
+
+#         return redirect(url_for('search_results', book_name=book_name))
+
+#     cursor.close()
+#     return redirect(url_for('home'))
+
+
+
+# @app.route('/search_results', methods=['GET'])
+# def search_results():
+#     connection = mysql.connection
+#     cursor = connection.cursor()
+#     book_name = request.args.get('book_name')
+
+#     if book_name:
+#         search_query = f"CALL SearchBook('{book_name}')"
+#         cursor.execute(search_query)
+#         books = cursor.fetchall()
+       
+#         member_info = session.get('member_info')
+
+#         print(books)
+#         return render_template('member.html', fName=member_info[0], lName=member_info[1], email=member_info[2],pNumber=member_info[3], books=books)
+#     else:
+#         return redirect(url_for('home'))
